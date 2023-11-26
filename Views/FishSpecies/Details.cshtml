@@ -1,0 +1,48 @@
+﻿@model FishBuddy.Models.FishSpecies
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>FishSpecies</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FishCommonName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FishCommonName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FishSpeciesName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FishSpeciesName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FishHabitat)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FishHabitat)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RecordWeight)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RecordWeight)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RecordLength)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RecordLength)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.FishSpeciesId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
