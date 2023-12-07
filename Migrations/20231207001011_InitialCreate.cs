@@ -62,6 +62,46 @@ namespace FishBuddy.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "FishTime",
+                columns: table => new
+                {
+                    FishTimeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FishSpeciesId = table.Column<int>(type: "int", nullable: false),
+                    BestTimes = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FishTime", x => x.FishTimeId);
+                    table.ForeignKey(
+                        name: "FK_FishTime_FishSpecies_FishSpeciesId",
+                        column: x => x.FishSpeciesId,
+                        principalTable: "FishSpecies",
+                        principalColumn: "FishSpeciesId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FishWeather",
+                columns: table => new
+                {
+                    FishWeatherId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FishSpeciesId = table.Column<int>(type: "int", nullable: false),
+                    BestWeathers = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FishWeather", x => x.FishWeatherId);
+                    table.ForeignKey(
+                        name: "FK_FishWeather_FishSpecies_FishSpeciesId",
+                        column: x => x.FishSpeciesId,
+                        principalTable: "FishSpecies",
+                        principalColumn: "FishSpeciesId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "FishList",
                 columns: new[] { "ID", "Date", "Fish Name", "Location", "MaxLength", "Weight" },
@@ -78,9 +118,13 @@ namespace FishBuddy.Migrations
                 values: new object[,]
                 {
                     { 1, "Largemouth Bass", "Ponds, Swamps, Lakes, Creeks, Rivers", "Micropterus salmoides", "25.59 inches", "22 Pounds 4 Ounces" },
-                    { 2, "Smallmouth Bass", "Ponds, Lakes, Creeks, Rivers", "Micropterus salmoides", "27 inches", "11 Pounds 15 Ounces" },
+                    { 2, "Smallmouth Bass", "Ponds, Lakes, Creeks, Rivers", "Micropterus dolomieu", "27 inches", "11 Pounds 15 Ounces" },
                     { 3, "Northern Pike", "Ponds, Lakes, Creeks, Rivers", "Esox lucius", "52 Inches", "55 Pounds" },
-                    { 4, "Lake Trout", "Lakes", "Salvelinus namaycush", "47 Inches", "73 Pounds 29 Ounces" }
+                    { 4, "Lake Trout", "Lakes", "Salvelinus namaycush", "47 Inches", "73 Pounds 29 Ounces" },
+                    { 5, "Walleye", "Lakes & Rivers", "Sander vitreus", "41 Inches", "25 Pounds" },
+                    { 6, "Steelhead", "Lakes & Rivers", "Oncorhynchus mykiss", "45 Inches", "40 Pounds" },
+                    { 7, "Musky", "Lakes & Rivers", "Esox masquinongy", "72 Inches", "70 Pounds" },
+                    { 8, "King Salmon", "Lakes & Rivers", "Oncorhynchus tshawytscha", "58 Inches", "126 Pounds" }
                 });
 
             migrationBuilder.InsertData(
@@ -91,12 +135,56 @@ namespace FishBuddy.Migrations
                     { 1, "Fake Worms, Jigs, Topwater Lures, Paddletail Swimbaits", 1 },
                     { 2, "Tubes, Jigs, Topwater Lures, Paddletail Swimbaits", 2 },
                     { 3, "Spoons, Crankbaits, Jerkbaits, Large Soft Swimbaits", 3 },
-                    { 4, "Spoons & Tubes", 4 }
+                    { 4, "Spoons & Tubes", 4 },
+                    { 5, "Crankbaits & Jigs", 5 },
+                    { 6, "Spoons, Imitation Eggs, & Spinners", 6 },
+                    { 7, "Spoons, Crankbaits, Jerkbaits, Large Soft Swimbaits", 7 },
+                    { 8, "Spoons, Imitation Eggs, & Spinners", 8 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "FishTime",
+                columns: new[] { "FishTimeId", "BestTimes", "FishSpeciesId" },
+                values: new object[,]
+                {
+                    { 1, "Dawn & Dusk", 1 },
+                    { 2, "Dawn & Dusk", 2 },
+                    { 3, "Dawn & Dusk", 3 },
+                    { 4, "Dawn & Dusk", 4 },
+                    { 5, "Dawn, Dusk, & Night", 5 },
+                    { 6, "Dawn & Dusk", 6 },
+                    { 7, "Dawn & Dusk", 7 },
+                    { 8, "Dawn & Dusk", 8 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "FishWeather",
+                columns: new[] { "FishWeatherId", "BestWeathers", "FishSpeciesId" },
+                values: new object[,]
+                {
+                    { 1, "Cloudy & warmer weather", 1 },
+                    { 2, "Cloudy & cooler weather", 2 },
+                    { 3, "Cloudy & cooler weather", 3 },
+                    { 4, "Cloudy & very cold weather", 4 },
+                    { 5, "Cloudy & cooler weather", 5 },
+                    { 6, "Cloudy & very cold weather", 6 },
+                    { 7, "Cloudy & cooler weather", 7 },
+                    { 8, "Cloudy & very cold weather", 8 }
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_FishLure_FishSpeciesId",
                 table: "FishLure",
+                column: "FishSpeciesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FishTime_FishSpeciesId",
+                table: "FishTime",
+                column: "FishSpeciesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FishWeather_FishSpeciesId",
+                table: "FishWeather",
                 column: "FishSpeciesId");
         }
 
@@ -107,6 +195,12 @@ namespace FishBuddy.Migrations
 
             migrationBuilder.DropTable(
                 name: "FishLure");
+
+            migrationBuilder.DropTable(
+                name: "FishTime");
+
+            migrationBuilder.DropTable(
+                name: "FishWeather");
 
             migrationBuilder.DropTable(
                 name: "FishSpecies");

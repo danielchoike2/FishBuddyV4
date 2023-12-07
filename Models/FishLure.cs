@@ -10,7 +10,7 @@ namespace FishBuddy.Models
         public int FishSpeciesId { get; set; }
         [Display(Name = "Fish Name")]
         public FishSpecies? FishSpecies { get; set; }
-        [Display(Name = "Fish Lure")]
+        [Display(Name = "Best Lures for Species")]
         public string? FishLureName { get; set; }
 
 

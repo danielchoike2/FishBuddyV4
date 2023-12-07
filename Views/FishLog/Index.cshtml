@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FishBuddy.Models.FishLog>
+﻿@model PaginatedList<FishBuddy.Models.FishLog>
 
 @{
     ViewData["Title"] = "Index";
@@ -9,24 +9,35 @@
 <p>
     <a asp-action="Create">Add Catch</a>
 </p>
-<table class="table">
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Search by fish name or date: <input type="text" name="SearchString" value="@ViewData["currentfilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" />
+            <a asp-action="Index">Back to Full Catch Log</a>
+        </p>
+    </div>
+</form>
+
+<table class="table table-dark">
     <thead>
         <tr>
             <th>
-            @Html.DisplayNameFor(model => model.Date)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">Date</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FishName)
+                @Html.DisplayName("FishName")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Location)
+                @Html.DisplayName("Location")
             </th>
            
             <th>
-                @Html.DisplayNameFor(model => model.MaxLength)
+                @Html.DisplayName("MaxLength")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MaxWeight)
+                @Html.DisplayName("MaxWeight")
             </th>
           
             <th></th>
@@ -62,3 +73,24 @@
         }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>
+

@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FishBuddy.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FishBuddy.Controllers
 {
+    [Authorize]
     public class FishLogController : Controller
     {
         private readonly FishContext _context;
@@ -19,11 +21,59 @@ namespace FishBuddy.Controllers
         }
 
         // GET: FishSpecies
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //return _context.FishList != null ? 
+        //View(await _context.FishList.ToListAsync()) :
+        //Problem("Entity set 'FishContext.FishList'  is null.");
+        //}
+        [AllowAnonymous]
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
-              return _context.FishList != null ? 
-                          View(await _context.FishList.ToListAsync()) :
-                          Problem("Entity set 'FishContext.FishList'  is null.");
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var fishcatches = from f in _context.FishList
+                            select f;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                fishcatches = fishcatches.Where(s => s.FishName.Contains(searchString)
+                    || s.Date.Contains(searchString));
+            }
+
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    fishcatches = fishcatches.OrderByDescending(s => s.FishName);
+                    break;
+                case "Date":
+                    fishcatches = fishcatches.OrderBy(s => s.Date);
+                    break;
+                case "date_desc":
+                    fishcatches = fishcatches.OrderByDescending(s => s.Date);
+                    break;
+                default:
+                    fishcatches = fishcatches.OrderBy(s => s.FishName);
+                    break;
+            }
+
+
+            int pageSize = 10;
+            return View(await PaginatedList<FishLog>.CreateAsync(fishcatches.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: FishSpecies/Details/5

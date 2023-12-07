@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FishBuddy.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FishBuddy.Controllers
 {
+    [Authorize]
     public class FishSpeciesController : Controller
     {
         private readonly FishContext _context;
@@ -19,6 +21,7 @@ namespace FishBuddy.Controllers
         }
 
         // GET: FishSpecies
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
               return _context.FishSpecies != null ? 

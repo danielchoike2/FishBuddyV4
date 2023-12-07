@@ -1,0 +1,43 @@
+﻿@model IEnumerable<FishBuddy.Models.FishTime>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Best Times To Catch Fish</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FishSpecies)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BestTimes)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.FishSpecies.FishCommonName)
+                </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.BestTimes)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FishTimeId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.FishTimeId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.FishTimeId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

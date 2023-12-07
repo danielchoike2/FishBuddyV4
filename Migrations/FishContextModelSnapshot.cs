@@ -127,6 +127,30 @@ namespace FishBuddy.Migrations
                             FishLureId = 4,
                             FishLureName = "Spoons & Tubes",
                             FishSpeciesId = 4
+                        },
+                        new
+                        {
+                            FishLureId = 5,
+                            FishLureName = "Crankbaits & Jigs",
+                            FishSpeciesId = 5
+                        },
+                        new
+                        {
+                            FishLureId = 6,
+                            FishLureName = "Spoons, Imitation Eggs, & Spinners",
+                            FishSpeciesId = 6
+                        },
+                        new
+                        {
+                            FishLureId = 7,
+                            FishLureName = "Spoons, Crankbaits, Jerkbaits, Large Soft Swimbaits",
+                            FishSpeciesId = 7
+                        },
+                        new
+                        {
+                            FishLureId = 8,
+                            FishLureName = "Spoons, Imitation Eggs, & Spinners",
+                            FishSpeciesId = 8
                         });
                 });
 
@@ -172,7 +196,7 @@ namespace FishBuddy.Migrations
                             FishSpeciesId = 2,
                             FishCommonName = "Smallmouth Bass",
                             FishHabitat = "Ponds, Lakes, Creeks, Rivers",
-                            FishSpeciesName = "Micropterus salmoides",
+                            FishSpeciesName = "Micropterus dolomieu",
                             RecordLength = "27 inches",
                             RecordWeight = "11 Pounds 15 Ounces"
                         },
@@ -193,10 +217,210 @@ namespace FishBuddy.Migrations
                             FishSpeciesName = "Salvelinus namaycush",
                             RecordLength = "47 Inches",
                             RecordWeight = "73 Pounds 29 Ounces"
+                        },
+                        new
+                        {
+                            FishSpeciesId = 5,
+                            FishCommonName = "Walleye",
+                            FishHabitat = "Lakes & Rivers",
+                            FishSpeciesName = "Sander vitreus",
+                            RecordLength = "41 Inches",
+                            RecordWeight = "25 Pounds"
+                        },
+                        new
+                        {
+                            FishSpeciesId = 6,
+                            FishCommonName = "Steelhead",
+                            FishHabitat = "Lakes & Rivers",
+                            FishSpeciesName = "Oncorhynchus mykiss",
+                            RecordLength = "45 Inches",
+                            RecordWeight = "40 Pounds"
+                        },
+                        new
+                        {
+                            FishSpeciesId = 7,
+                            FishCommonName = "Musky",
+                            FishHabitat = "Lakes & Rivers",
+                            FishSpeciesName = "Esox masquinongy",
+                            RecordLength = "72 Inches",
+                            RecordWeight = "70 Pounds"
+                        },
+                        new
+                        {
+                            FishSpeciesId = 8,
+                            FishCommonName = "King Salmon",
+                            FishHabitat = "Lakes & Rivers",
+                            FishSpeciesName = "Oncorhynchus tshawytscha",
+                            RecordLength = "58 Inches",
+                            RecordWeight = "126 Pounds"
+                        });
+                });
+
+            modelBuilder.Entity("FishBuddy.Models.FishTime", b =>
+                {
+                    b.Property<int>("FishTimeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FishTimeId"), 1L, 1);
+
+                    b.Property<string>("BestTimes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FishSpeciesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FishTimeId");
+
+                    b.HasIndex("FishSpeciesId");
+
+                    b.ToTable("FishTime");
+
+                    b.HasData(
+                        new
+                        {
+                            FishTimeId = 1,
+                            BestTimes = "Dawn & Dusk",
+                            FishSpeciesId = 1
+                        },
+                        new
+                        {
+                            FishTimeId = 2,
+                            BestTimes = "Dawn & Dusk",
+                            FishSpeciesId = 2
+                        },
+                        new
+                        {
+                            FishTimeId = 3,
+                            BestTimes = "Dawn & Dusk",
+                            FishSpeciesId = 3
+                        },
+                        new
+                        {
+                            FishTimeId = 4,
+                            BestTimes = "Dawn & Dusk",
+                            FishSpeciesId = 4
+                        },
+                        new
+                        {
+                            FishTimeId = 5,
+                            BestTimes = "Dawn, Dusk, & Night",
+                            FishSpeciesId = 5
+                        },
+                        new
+                        {
+                            FishTimeId = 6,
+                            BestTimes = "Dawn & Dusk",
+                            FishSpeciesId = 6
+                        },
+                        new
+                        {
+                            FishTimeId = 7,
+                            BestTimes = "Dawn & Dusk",
+                            FishSpeciesId = 7
+                        },
+                        new
+                        {
+                            FishTimeId = 8,
+                            BestTimes = "Dawn & Dusk",
+                            FishSpeciesId = 8
+                        });
+                });
+
+            modelBuilder.Entity("FishBuddy.Models.FishWeather", b =>
+                {
+                    b.Property<int>("FishWeatherId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FishWeatherId"), 1L, 1);
+
+                    b.Property<string>("BestWeathers")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FishSpeciesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FishWeatherId");
+
+                    b.HasIndex("FishSpeciesId");
+
+                    b.ToTable("FishWeather");
+
+                    b.HasData(
+                        new
+                        {
+                            FishWeatherId = 1,
+                            BestWeathers = "Cloudy & warmer weather",
+                            FishSpeciesId = 1
+                        },
+                        new
+                        {
+                            FishWeatherId = 2,
+                            BestWeathers = "Cloudy & cooler weather",
+                            FishSpeciesId = 2
+                        },
+                        new
+                        {
+                            FishWeatherId = 3,
+                            BestWeathers = "Cloudy & cooler weather",
+                            FishSpeciesId = 3
+                        },
+                        new
+                        {
+                            FishWeatherId = 4,
+                            BestWeathers = "Cloudy & very cold weather",
+                            FishSpeciesId = 4
+                        },
+                        new
+                        {
+                            FishWeatherId = 5,
+                            BestWeathers = "Cloudy & cooler weather",
+                            FishSpeciesId = 5
+                        },
+                        new
+                        {
+                            FishWeatherId = 6,
+                            BestWeathers = "Cloudy & very cold weather",
+                            FishSpeciesId = 6
+                        },
+                        new
+                        {
+                            FishWeatherId = 7,
+                            BestWeathers = "Cloudy & cooler weather",
+                            FishSpeciesId = 7
+                        },
+                        new
+                        {
+                            FishWeatherId = 8,
+                            BestWeathers = "Cloudy & very cold weather",
+                            FishSpeciesId = 8
                         });
                 });
 
             modelBuilder.Entity("FishBuddy.Models.FishLure", b =>
+                {
+                    b.HasOne("FishBuddy.Models.FishSpecies", "FishSpecies")
+                        .WithMany()
+                        .HasForeignKey("FishSpeciesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FishSpecies");
+                });
+
+            modelBuilder.Entity("FishBuddy.Models.FishTime", b =>
+                {
+                    b.HasOne("FishBuddy.Models.FishSpecies", "FishSpecies")
+                        .WithMany()
+                        .HasForeignKey("FishSpeciesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FishSpecies");
+                });
+
+            modelBuilder.Entity("FishBuddy.Models.FishWeather", b =>
                 {
                     b.HasOne("FishBuddy.Models.FishSpecies", "FishSpecies")
                         .WithMany()

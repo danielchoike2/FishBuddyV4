@@ -9,15 +9,11 @@
 <h4>FishLure</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 bg-dark text-white">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="FishLureId" />
-            <div class="form-group">
-                <label asp-for="FishSpeciesId" class="control-label"></label>
-                <select asp-for="FishSpeciesId" class="form-control" asp-items="ViewBag.FishSpeciesId"></select>
-                <span asp-validation-for="FishSpeciesId" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="FishSpeciesId" />
             <div class="form-group">
                 <label asp-for="FishLureName" class="control-label"></label>
                 <input asp-for="FishLureName" class="form-control" />
